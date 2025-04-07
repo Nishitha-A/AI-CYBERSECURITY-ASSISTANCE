@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cybersecurity Assistant</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+  background: url('https://yourdomain.com/images/cybersecurity-bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      transition: background 0.5s ease;
+    }
+
+    .container {
+      background-color: rgba(30, 41, 59, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      width: 400px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      padding: 10px;
+      border-radius: 8px;
+      resize: none;
+      margin-bottom: 15px;
+      background-color: #334155;
+      color: white;
+      border: none;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #0ea5e9;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #results {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Cybersecurity Assistant</h1>
+    <textarea id="inputText" placeholder="Paste your link or text here..."></textarea>
+    <button onclick="checkThreats()">Check for Threats</button>
+    <div id="results"></div>
+  </div>
+
+  <script>
+    function checkThreats() {
+      const input = document.getElementById("inputText").value.toLowerCase();
+      const resultBox = document.getElementById("results");
+
+      const suspiciousKeywords = ["phishing", "malware", "trojan", "hack", "spyware"];
+      const dangerousExtensions = [".exe", ".bat", ".scr", ".cmd", ".js"];
+      const suspiciousLinks = ["http://", "https://", ".xyz", ".tk", "bit.ly", "tinyurl"];
+
+      let threats = [];
+
+      suspiciousKeywords.forEach(word => {
+        if (input.includes(word)) {
+          threats.push(`⚠️ Suspicious keyword detected: <strong>${word}</strong>`);
+        }
+      });
+
+      dangerousExtensions.forEach(ext => {
+        if (input.includes(ext)) {
+          threats.push(`⚠️ Dangerous file extension: <strong>${ext}</strong>`);
+        }
+      });
+
+      suspiciousLinks.forEach(link => {
+        if (input.includes(link)) {
+          threats.push(`⚠️ Possible suspicious link: contains <strong>${link}</strong>`);
+        }
+      });
+
+      // Change background image if threats are found
+      if (threats.length > 0) {
+  resultBox.innerHTML = `<div style="color: #facc15">${threats.join("<br>")}</div>`;
+  document.body.style.background = "url('https://st3.depositphotos.com/4160869/17734/v/450/depositphotos_177341158-stock-illustration-hazard-warning-attention-sign-with.jpg') no-repeat center center fixed";
+  document.body.style.backgroundSize = "cover";
+}
+else {
+  resultBox.innerHTML = `<div style="color: #4ade80">✅ No immediate threats found.</div>`;
+  document.body.style.background = "url('https://viitorcloudblog.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2023/10/06142242/How-AI-in-Cybersecurity-Helps-Companies.png') no-repeat center center fixed";
+  document.body.style.backgroundSize = "cover";
+}
+
+    }
+  </script>
+</body>
+</html>
